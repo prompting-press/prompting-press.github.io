@@ -18,7 +18,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,19 +32,28 @@ jobs:
         with:
           path: .
 
+      # actions/deploy-pages hard-caps its poll timeout at 600000ms (10 min) — a
+      # larger `timeout:` is silently clamped. So there is no knob to wait out a
+      # slow Pages backend: when it is backlogged and the deployment sits in
+      # `deployment_queued` past 10 min, this step times out. That backlog is
+      # transient and clears on a second attempt, so the first attempt uses
+      # continue-on-error and the retry step below re-runs it once. Without
+      # continue-on-error a first-attempt timeout would fail the whole job even
+      # if the retry then succeeded.
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          # Default is 600000ms (10 min). The Pages backend has been sitting in
-          # `deployment_queued` past that and getting killed mid-publish, so give
-          # it more headroom before the action aborts.
-          timeout: 1200000
+        continue-on-error: true
 
-      # On any deploy failure, `actions/deploy-pages` only logs the polled status
-      # ("deployment_queued") and then "Timeout reached, aborting!" — it never
-      # surfaces the backend's actual error. Pull the real deployment status
-      # (state + description) from the API so failures are diagnosable.
+      - name: Retry deploy once on transient timeout
+        id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+
+      # If the first attempt succeeded, this is a no-op. If both attempts failed,
+      # dump the real deployment statuses + Pages config so the failure is
+      # diagnosable — actions/deploy-pages otherwise only logs the polled
+      # "deployment_queued" state and "Timeout reached, aborting!" with no reason.
       - name: Log deploy failure detail
         if: failure()
         env:
