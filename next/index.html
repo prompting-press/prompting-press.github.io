@@ -80,10 +80,10 @@ bind one shared Rust engine, so a rendered prompt is byte-identical across them.
 <ul>
 <li><strong>A focused template language</strong> (MiniJinja): interpolation (<code dir="auto">{{ name }}</code>), conditionals (<code dir="auto">{% if %}</code>), and
 loops (<code dir="auto">{% for %}</code>). Includes, macros, and inheritance are excluded so the agreement check stays sound. See
-<strong><a href="/templates/">Template features</a></strong>.</li>
+<strong><a href="/next/templates/">Template features</a></strong>.</li>
 <li><strong>Named variants.</strong> A prompt can carry alternative bodies (<code dir="auto">concise</code>, <code dir="auto">formal</code>, …) that share the same
 declared variables. A variant is selected by name at render (<code dir="auto">variant: "formal"</code>); selection is caller-owned.
-See <strong><a href="/guides/variants/">Variants</a></strong>.</li>
+See <strong><a href="/next/guides/variants/">Variants</a></strong>.</li>
 </ul>
 <div class="sl-heading-wrapper level-h3"><h3 id="typed-validated-inputs">Typed, validated inputs</h3><a class="sl-anchor-link" href="#typed-validated-inputs"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Typed, validated inputs”</span></a></div>
 <ul>
@@ -100,8 +100,8 @@ TypeScript, at compile time in Rust).</li>
 <ul>
 <li><strong><code dir="auto">trusted</code> flag and an advisory guard.</strong> A variable is declared <code dir="auto">trusted: true</code> or <code dir="auto">trusted: false</code>.
 When the guard is enabled at render, <code dir="auto">trusted: false</code> values are delimited in the rendered body with
-<code dir="auto">&lt;untrusted&gt;…&lt;/untrusted&gt;</code> markers, and a separate advisory string is returned for the downstream model.
-See <strong><a href="/guides/guard/">The advisory guard</a></strong>.</li>
+<code dir="auto">&#x3C;untrusted>…&#x3C;/untrusted></code> markers, and a separate advisory string is returned for the downstream model.
+See <strong><a href="/next/guides/guard/">The advisory guard</a></strong>.</li>
 <li><strong>Content hashes.</strong> Every render returns a <code dir="auto">template_hash</code> and a <code dir="auto">render_hash</code> (SHA-256), so a trace can
 identify which template produced which output. Both are byte-identical across the three languages.</li>
 <li><strong>Opaque metadata.</strong> A prompt and each variant carry an optional <code dir="auto">metadata</code> map (model hints, tags, an
@@ -112,10 +112,10 @@ with one documented exception: the presence of a <code dir="auto">guard</code> k
 <ul>
 <li><strong>An immutable <code dir="auto">Prompt</code>.</strong> Construct it from a shape object or from YAML, JSON, or TOML text, then <code dir="auto">render</code>,
 read its source, or <code dir="auto">check()</code> it. There are no setters; <code dir="auto">derive</code> produces a new <code dir="auto">Prompt</code> by shallow-replacing
-a field and re-validating the whole. See <strong><a href="/getting-started/rust/">Getting started</a></strong>.</li>
+a field and re-validating the whole. See <strong><a href="/next/getting-started/rust/">Getting started</a></strong>.</li>
 <li><strong>Multi-message composition.</strong> Several <code dir="auto">Prompt</code> objects (each with its own variables) compose into an ordered,
 role-tagged <code dir="auto">[{role, text}]</code> sequence. There is no registry; the objects are passed directly. See
-<strong><a href="/guides/composition/">Composition</a></strong>.</li>
+<strong><a href="/next/guides/composition/">Composition</a></strong>.</li>
 <li><strong>One engine, three languages.</strong> Rust, Python, and TypeScript bind the same Rust core, so rendering,
 validation behavior, and hashes are identical across them. The idiom is native per language; the result is not.</li>
 </ul>
@@ -127,5 +127,5 @@ validation behavior, and hashes are identical across them. The idiom is native p
 <li>Its untrusted-input <strong>guard is advisory text, not enforcement</strong>. It names untrusted fields for the downstream
 model; it does not sanitize values, and the library has no model of its own.</li>
 </ul>
-<p>See <strong><a href="/getting-started/rust/">Getting started</a></strong> for a per-language walkthrough, or the
-<strong><a href="/reference/prompt-definition/">API reference</a></strong>.</p></div><footer class="sl-flex astro-zjgp4jbm"><div class="meta sl-flex astro-zjgp4jbm"></div><div class="pagination-links print:hidden astro-z7n2oqkc" dir="ltr"><a href="/next/getting-started/rust/" rel="next" class="astro-z7n2oqkc"><svg aria-hidden="true" class="astro-z7n2oqkc astro-yhnol5o3" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-z7n2oqkc">Next<br class="astro-z7n2oqkc"><span class="link-title astro-z7n2oqkc">Rust</span></span></a></div></footer><p class="docs-freshness astro-ft5hcqwl">docs current as of <strong class="astro-ft5hcqwl">next (main)</strong></p></div></div></main></div></div></div></div></body></html>
+<p>See <strong><a href="/next/getting-started/rust/">Getting started</a></strong> for a per-language walkthrough, or the
+<strong><a href="/next/reference/prompt-definition/">API reference</a></strong>.</p></div><footer class="sl-flex astro-zjgp4jbm"><div class="meta sl-flex astro-zjgp4jbm"></div><div class="pagination-links print:hidden astro-z7n2oqkc" dir="ltr"><a href="/next/getting-started/rust/" rel="next" class="astro-z7n2oqkc"><svg aria-hidden="true" class="astro-z7n2oqkc astro-yhnol5o3" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-z7n2oqkc">Next<br class="astro-z7n2oqkc"><span class="link-title astro-z7n2oqkc">Rust</span></span></a></div></footer><p class="docs-freshness astro-ft5hcqwl">docs current as of <strong class="astro-ft5hcqwl">next (main)</strong></p></div></div></main></div></div></div></div></body></html>

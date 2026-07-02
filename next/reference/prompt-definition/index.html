@@ -79,101 +79,101 @@ types, Rust serde structs) are <strong>code-generated</strong> from it at build 
 <hr>
 <div class="sl-heading-wrapper level-h2"><h2 id="top-level-fields">Top-level fields</h2><a class="sl-anchor-link" href="#top-level-fields"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Top-level fields”</span></a></div>
 <p><code dir="auto">name</code>, <code dir="auto">role</code>, and <code dir="auto">body</code> are <strong>required</strong>. All other fields are optional.</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code dir="auto">name</code></td>
-<td><code dir="auto">string</code></td>
-<td>Yes</td>
-<td>Logical prompt name; the caller’s reference key.</td>
-</tr>
-<tr>
-<td><code dir="auto">role</code></td>
-<td><code dir="auto">"system" | "user" | "assistant"</code></td>
-<td>Yes</td>
-<td>Conversational role; first-class metadata the caller reads. Shared across all variants.</td>
-</tr>
-<tr>
-<td><code dir="auto">body</code></td>
-<td><code dir="auto">string</code></td>
-<td>Yes</td>
-<td>The DEFAULT variant’s template source. The root body IS the default arm; surfaced under reserved name ‘default’ with is_default=true.</td>
-</tr>
-<tr>
-<td><code dir="auto">variables</code></td>
-<td><code dir="auto">object</code></td>
-<td>No</td>
-<td>Declared input variables, shared across all variants. Each entry declares the variable’s type and input-trust flag. Default: <code dir="auto">{}</code>.</td>
-</tr>
-<tr>
-<td><code dir="auto">variants</code></td>
-<td><code dir="auto">object</code></td>
-<td>No</td>
-<td>Named alternative arms. Absent =&gt; the prompt has only the default (root body) arm. Each arm differs ONLY in body (+ optional opaque metadata).</td>
-</tr>
-<tr>
-<td><code dir="auto">output_model</code></td>
-<td><code dir="auto">string</code></td>
-<td>No</td>
-<td>Optional OPAQUE reference to the caller’s output model (e.g. ‘NodeOutput’). Stored and echoed; never resolved, loaded, or parsed. Shared across variants.</td>
-</tr>
-<tr>
-<td><code dir="auto">metadata</code></td>
-<td><code dir="auto">object</code></td>
-<td>No</td>
-<td>Arbitrary prompt-level metadata; library-OPAQUE (may include uninterpreted model/param hints, selection labels like weight/group/tags, or a <code dir="auto">guard</code> key). Stored and echoed; never interpreted by the library. The prompt and each variant each carry exactly one <code dir="auto">metadata</code> bag.</td>
-</tr>
-</tbody>
-</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody><tr><td><code dir="auto">name</code></td><td><code dir="auto">string</code></td><td>Yes</td><td>Logical prompt name; the caller’s reference key.</td></tr><tr><td><code dir="auto">role</code></td><td><code dir="auto">"system" | "user" | "assistant"</code></td><td>Yes</td><td>Conversational role; first-class metadata the caller reads. Shared across all variants.</td></tr><tr><td><code dir="auto">body</code></td><td><code dir="auto">string</code></td><td>Yes</td><td>The DEFAULT variant’s template source. The root body IS the default arm; surfaced under reserved name ‘default’ with is_default=true.</td></tr><tr><td><code dir="auto">variables</code></td><td><code dir="auto">object</code></td><td>No</td><td>Declared input variables, shared across all variants. Each entry declares the variable’s type and input-trust flag. Default: <code dir="auto">{}</code>.</td></tr><tr><td><code dir="auto">variants</code></td><td><code dir="auto">object</code></td><td>No</td><td>Named alternative arms. Absent => the prompt has only the default (root body) arm. Each arm differs ONLY in body (+ optional opaque metadata).</td></tr><tr><td><code dir="auto">output_model</code></td><td><code dir="auto">string</code></td><td>No</td><td>Optional OPAQUE reference to the caller’s output model (e.g. ‘NodeOutput’). Stored and echoed; never resolved, loaded, or parsed. Shared across variants.</td></tr><tr><td><code dir="auto">metadata</code></td><td><code dir="auto">object</code></td><td>No</td><td>Arbitrary prompt-level metadata; library-OPAQUE (may include uninterpreted model/param hints, selection labels like weight/group/tags, or a <code dir="auto">guard</code> key). Stored and echoed; never interpreted by the library. The prompt and each variant each carry exactly one <code dir="auto">metadata</code> bag.</td></tr></tbody></table>
 <hr>
 <div class="sl-heading-wrapper level-h2"><h2 id="variables--promptvariable"><code dir="auto">variables[*]</code> — PromptVariable</h2><a class="sl-anchor-link" href="#variables--promptvariable"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “variables[*] — PromptVariable”</span></a></div>
 <p>Each entry in the <code dir="auto">variables</code> map is a <code dir="auto">PromptVariable</code>. The <code dir="auto">type</code> and <code dir="auto">trusted</code> fields are required.
 The optional <code dir="auto">description</code> field is a human-readable annotation; validation constraints belong in the
 per-language validator (Zod / Pydantic / garde) and are not part of this shape.</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code dir="auto">type</code></td>
-<td><code dir="auto">"string" | "integer" | "number" | "boolean" | "array" | "object" | array</code></td>
-<td>Yes</td>
-<td>JSON-Schema type keyword(s) for the variable.</td>
-</tr>
-<tr>
-<td><code dir="auto">trusted</code></td>
-<td><code dir="auto">boolean</code></td>
-<td>Yes</td>
-<td>Per-field input-trust flag. <code dir="auto">true</code> ⇒ a trusted input (never delimited). <code dir="auto">false</code> ⇒ untrusted input: when the opt-in guard is enabled, the variable’s interpolated value is wrapped in injection-resistant <code dir="auto">&lt;untrusted&gt;…&lt;/untrusted&gt;</code> delimiters in the rendered body, and the guard advisory references the markers. Use <code dir="auto">check</code> to detect untrusted variables (<code dir="auto">trusted: false</code>) that lack a declared guard.</td>
-</tr>
-<tr>
-<td><code dir="auto">validation_required</code></td>
-<td><code dir="auto">boolean</code></td>
-<td>No</td>
-<td>When true, a validator covering this variable MUST be supplied when the Prompt is constructed. Orthogonal to <code dir="auto">trusted</code> — it MAY mark any variable, trusted or not. Declarative metadata; enforcement is per-language: TypeScript (Zod) and Python (Pydantic) introspect the supplied validator and throw/raise at construction if this variable is uncovered, while Rust guarantees coverage structurally at compile time. The kernel never reads this field (validation-blind). Default: <code dir="auto">false</code>.</td>
-</tr>
-<tr>
-<td><code dir="auto">description</code></td>
-<td><code dir="auto">string</code></td>
-<td>No</td>
-<td>Optional human-readable description of the variable.</td>
-</tr>
-</tbody>
-</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody><tr><td><code dir="auto">type</code></td><td><code dir="auto">"string" | "integer" | "number" | "boolean" | "array" | "object" | array</code></td><td>Yes</td><td>JSON-Schema type keyword(s) for the variable.</td></tr><tr><td><code dir="auto">trusted</code></td><td><code dir="auto">boolean</code></td><td>Yes</td><td>Per-field input-trust flag. <code dir="auto">true</code> ⇒ a trusted input (never delimited). <code dir="auto">false</code> ⇒ untrusted input: when the opt-in guard is enabled, the variable’s interpolated value is wrapped in injection-resistant <code dir="auto">&#x3C;untrusted>…&#x3C;/untrusted></code> delimiters in the rendered body, and the guard advisory references the markers. Use <code dir="auto">check</code> to detect untrusted variables (<code dir="auto">trusted: false</code>) that lack a declared guard.</td></tr><tr><td><code dir="auto">validation_required</code></td><td><code dir="auto">boolean</code></td><td>No</td><td>When true, a validator covering this variable MUST be supplied when the Prompt is constructed. Orthogonal to <code dir="auto">trusted</code> — it MAY mark any variable, trusted or not. Declarative metadata; enforcement is per-language: TypeScript (Zod) and Python (Pydantic) introspect the supplied validator and throw/raise at construction if this variable is uncovered, while Rust guarantees coverage structurally at compile time. The kernel never reads this field (validation-blind). Default: <code dir="auto">false</code>.</td></tr><tr><td><code dir="auto">description</code></td><td><code dir="auto">string</code></td><td>No</td><td>Optional human-readable description of the variable.</td></tr></tbody></table>
 <div class="sl-heading-wrapper level-h3"><h3 id="trusted-flag"><code dir="auto">trusted</code> flag</h3><a class="sl-anchor-link" href="#trusted-flag"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “trusted flag”</span></a></div>
 <p>The <code dir="auto">trusted</code> field is the <strong>per-variable input-trust flag</strong>.
 It is <strong>declarative metadata</strong> — the kernel does not enforce it at render time. Use <code dir="auto">check()</code> to
@@ -189,52 +189,52 @@ own template source) and an optional <code dir="auto">metadata</code> map. Role,
 across all variants.</p>
 <p>The name <code dir="auto">"default"</code> is <strong>reserved</strong> for the root body; declaring a variant with that name is
 rejected at construction.</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code dir="auto">body</code></td>
-<td><code dir="auto">string</code></td>
-<td>Yes</td>
-<td>The variant’s template source — the only field that differs per variant.</td>
-</tr>
-<tr>
-<td><code dir="auto">metadata</code></td>
-<td><code dir="auto">object</code></td>
-<td>No</td>
-<td>Library-OPAQUE per-variant metadata (selection labels like weight/group/tags, or a <code dir="auto">guard</code> key). Stored + exposed; never interpreted by the library (caller selects). No schema-enforced selection semantics. Mirrors the prompt-level <code dir="auto">metadata</code> bag.</td>
-</tr>
-</tbody>
-</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody><tr><td><code dir="auto">body</code></td><td><code dir="auto">string</code></td><td>Yes</td><td>The variant’s template source — the only field that differs per variant.</td></tr><tr><td><code dir="auto">metadata</code></td><td><code dir="auto">object</code></td><td>No</td><td>Library-OPAQUE per-variant metadata (selection labels like weight/group/tags, or a <code dir="auto">guard</code> key). Stored + exposed; never interpreted by the library (caller selects). No schema-enforced selection semantics. Mirrors the prompt-level <code dir="auto">metadata</code> bag.</td></tr></tbody></table>
 <hr>
 <div class="sl-heading-wrapper level-h2"><h2 id="content-hashes-render-result">Content hashes (render-result)</h2><a class="sl-anchor-link" href="#content-hashes-render-result"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Content hashes (render-result)”</span></a></div>
 <p>Every call to <code dir="auto">render</code> returns a <code dir="auto">RenderResult</code> that carries two content-addressed hashes (in
 addition to the rendered <code dir="auto">text</code>):</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>What it hashes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code dir="auto">template_hash</code> (<code dir="auto">templateHash</code> in TS)</td>
-<td><code dir="auto">SHA256(resolved variant template source)</code></td>
-</tr>
-<tr>
-<td><code dir="auto">render_hash</code> (<code dir="auto">renderHash</code> in TS)</td>
-<td><code dir="auto">SHA256(rendered output text)</code></td>
-</tr>
-</tbody>
-</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field</th><th>What it hashes</th></tr></thead><tbody><tr><td><code dir="auto">template_hash</code> (<code dir="auto">templateHash</code> in TS)</td><td><code dir="auto">SHA256(resolved variant template source)</code></td></tr><tr><td><code dir="auto">render_hash</code> (<code dir="auto">renderHash</code> in TS)</td><td><code dir="auto">SHA256(rendered output text)</code></td></tr></tbody></table>
 <p>These hashes are <strong>not</strong> the same as the per-variable <code dir="auto">trusted</code> flag. They are content-addressed
 fingerprints that can be stored in a trace to pin exactly which template produced which output —
 and because all three bindings share the same Rust engine, the hashes are <strong>byte-identical</strong> across
