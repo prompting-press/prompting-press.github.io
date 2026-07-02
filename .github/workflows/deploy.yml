@@ -35,3 +35,29 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # Default is 600000ms (10 min). The Pages backend has been sitting in
+          # `deployment_queued` past that and getting killed mid-publish, so give
+          # it more headroom before the action aborts.
+          timeout: 1200000
+
+      # On any deploy failure, `actions/deploy-pages` only logs the polled status
+      # ("deployment_queued") and then "Timeout reached, aborting!" — it never
+      # surfaces the backend's actual error. Pull the real deployment status
+      # (state + description) from the API so failures are diagnosable.
+      - name: Log deploy failure detail
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "::group::Latest github-pages deployment + statuses"
+          DEP_ID=$(gh api "repos/${GITHUB_REPOSITORY}/deployments?environment=github-pages&per_page=1" \
+            --jq '.[0].id')
+          echo "deployment id: ${DEP_ID}"
+          gh api "repos/${GITHUB_REPOSITORY}/deployments/${DEP_ID}/statuses" \
+            --jq '.[] | "\(.created_at)  \(.state)  \(.description // "(no description)")"'
+          echo "::endgroup::"
+          echo "::group::Pages configuration"
+          gh api "repos/${GITHUB_REPOSITORY}/pages" \
+            --jq '{status, build_type, source, https_enforced}'
+          echo "::endgroup::"
